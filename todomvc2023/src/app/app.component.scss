@@ -1,5 +1,9 @@
 .filters {
-  li {
+  li > a {
     cursor: pointer;
   }
+}
+
+label[for="toggle-all"] {
+  cursor: pointer;
 }

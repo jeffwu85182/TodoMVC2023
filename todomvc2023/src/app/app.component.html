@@ -3,7 +3,7 @@
   <!-- This section should be hidden by default and shown when there are todos -->
   <section class="main">
     <input id="toggle-all" class="toggle-all" type="checkbox" />
-    <label for="toggle-all">Mark all as complete</label>
+    <label for="toggle-all" title="Mark all as complete" (click)="toggleAll()">Mark all as complete</label>
     <ul class="todo-list">
       <li
         *ngFor="let todoItem of todos; trackBy: trackByTodoId"
@@ -26,7 +26,7 @@
           />
           <label>{{ todoItem.title }}</label>
           <button
-            title="remove"
+            title="Remove this todo"
             type="button"
             class="destroy"
             (click)="removeTodoById(todoItem.id)"
@@ -89,6 +89,8 @@
 <footer class="info">
   <p>Double-click to edit a todo</p>
   <!-- Change this out with your name and url ↓ -->
-  <p>Created by <a href="https://github.com/jeffwu85182/TodoMVC2023">Jeff Wu</a></p>
+  <p>
+    Created by <a href="https://github.com/jeffwu85182/TodoMVC2023">Jeff Wu</a>
+  </p>
   <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 </footer>

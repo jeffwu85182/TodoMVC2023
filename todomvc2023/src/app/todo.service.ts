@@ -106,4 +106,12 @@ export class TodoService {
   removeCompleted() {
     this.todos = this.todos.filter((todo) => !todo.completed);
   }
+
+  toggleAllTodos() {
+    const allCompleted = this.todos.every((todo) => todo.completed);
+    this.todos = this.todos.map((todo) => ({
+      ...todo,
+      completed: !allCompleted,
+    }));
+  }
 }

@@ -61,4 +61,8 @@ export class AppComponent {
   trackByTodoId(index: number, todo: TodoItem) {
     return todo.id;
   }
+
+  toggleAll() {
+    this.todoService.toggleAllTodos();
+  }
 }
