@@ -12,6 +12,10 @@ export class AppComponent {
   constructor(private todoService: TodoService){
   }
 
+  get remainingTodos() {
+    return this.todos.filter((todo) => !todo.completed).length;
+  }
+
   removeTodoById(id: string) {
     this.todoService.removeTodoById(id);
     this.todos = this.todoService.todos;
