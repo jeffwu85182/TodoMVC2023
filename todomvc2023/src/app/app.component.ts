@@ -22,4 +22,19 @@ export class AppComponent {
     this.todos = this.todoService.todos;
   }
 
+  editTodoById(id: string) {
+    this.todoService.editTodoById(id);
+    this.todos = this.todoService.todos;
+  }
+
+  cancelEditingTodoById(id: string) {
+    this.todoService.cancelEditingTodoById(id);
+    this.todos = this.todoService.todos;
+  }
+
+  editTodoTitleById(id: string, title: string) {
+    this.todoService.editTodoTitleById(id, title);
+    this.todos = this.todoService.todos;
+  }
+
 }

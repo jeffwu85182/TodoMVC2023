@@ -3,4 +3,5 @@ export interface TodoItem {
     title: string;
     completed: boolean;
     editing: boolean;
+    timestamp: number;
 }

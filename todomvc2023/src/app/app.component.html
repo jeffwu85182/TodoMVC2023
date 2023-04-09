@@ -7,12 +7,18 @@
     <ul class="todo-list">
       <li
         *ngFor="let todoItem of todos"
-        [ngClass]="todoItem.completed ? 'completed' : ''"
+        [ngClass]="[
+          todoItem.completed ? 'completed' : '',
+          todoItem.editing ? 'editing' : ''
+        ]"
+        (dblclick)="editTodoById(todoItem.id)"
       >
         <div class="view">
           <input
             aria-label="toggle todo"
-            [title]="todoItem.completed ? 'Mark as uncomplete' : 'Mark as complete'"
+            [title]="
+              todoItem.completed ? 'Mark as uncomplete' : 'Mark as complete'
+            "
             class="toggle"
             type="checkbox"
             [checked]="todoItem.completed"
@@ -26,7 +32,14 @@
             (click)="removeTodoById(todoItem.id)"
           ></button>
         </div>
-        <input title="edit" class="edit" value="Rule the web" />
+        <input
+          #editedTitle
+          title="edit"
+          class="edit"
+          [value]="todoItem.title"
+          (keydown.enter)="editTodoTitleById(todoItem.id, editedTitle.value)"
+          (keydown.esc)="cancelEditingTodoById(todoItem.id)"
+        />
       </li>
     </ul>
   </section>
@@ -51,6 +64,7 @@
     <button class="clear-completed">Clear completed</button>
   </footer>
 </section>
+
 <footer class="info">
   <p>Double-click to edit a todo</p>
   <!-- Remove the below line ↓ -->
