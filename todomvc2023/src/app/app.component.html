@@ -11,7 +11,8 @@
       >
         <div class="view">
           <input
-            title="toggle"
+            aria-label="toggle todo"
+            [title]="todoItem.completed ? 'Mark as uncomplete' : 'Mark as complete'"
             class="toggle"
             type="checkbox"
             [checked]="todoItem.completed"

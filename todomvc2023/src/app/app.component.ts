@@ -12,12 +12,12 @@ export class AppComponent {
   constructor(private todoService: TodoService){
   }
 
-  removeTodoById(id: number) {
+  removeTodoById(id: string) {
     this.todoService.removeTodoById(id);
     this.todos = this.todoService.todos;
   }
 
-  toggleTodoCompleted(id: number) {
+  toggleTodoCompleted(id: string) {
     this.todoService.toggleTodoCompleted(id);
     this.todos = this.todoService.todos;
   }

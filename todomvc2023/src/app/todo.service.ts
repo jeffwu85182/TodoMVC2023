@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Injectable } from '@angular/core';
 import { TodoItem } from './todo-item';
 
@@ -7,13 +8,13 @@ import { TodoItem } from './todo-item';
 export class TodoService {
   todos: TodoItem[] = [
     {
-      id: 1,
+      id: 'mark1',
       title: 'Taste JavaScript',
       completed: true,
       editing: false
     },
     {
-      id: 2,
+      id: 'mark2',
       title: 'Buy a unicorn',
       completed: false,
       editing: false
@@ -23,18 +24,18 @@ export class TodoService {
 
   addTodo(title: string) {
     this.todos.push({
-      id: this.todos.length + 1,
+      id: uuidv4(),
       title,
       completed: false,
       editing: false
     });
   }
 
-  removeTodoById(id: number) {
+  removeTodoById(id: string) {
     this.todos = this.todos.filter(todo => todo.id !== id);
   }
 
-  toggleTodoCompleted(id: number) {
+  toggleTodoCompleted(id: string) {
     this.todos = this.todos.map(todo => {
       if (todo.id === id) {
         return {
