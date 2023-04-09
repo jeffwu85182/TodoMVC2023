@@ -29,4 +29,8 @@ export class TodoService {
       editing: false
     });
   }
+
+  removeTodoById(id: number) {
+    this.todos = this.todos.filter(todo => todo.id !== id);
+  }
 }

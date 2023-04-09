@@ -11,4 +11,10 @@ export class AppComponent {
   todos = this.todoService.todos;
   constructor(private todoService: TodoService){
   }
+
+  removeTodoById(id: number) {
+    this.todoService.removeTodoById(id);
+    this.todos = this.todoService.todos;
+  }
+
 }

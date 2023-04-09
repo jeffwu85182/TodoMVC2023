@@ -10,15 +10,25 @@
         [ngClass]="todoItem.completed ? 'completed' : ''"
       >
         <div class="view">
-          <input title="toggle" class="toggle" type="checkbox" [checked]="todoItem.completed" />
+          <input
+            title="toggle"
+            class="toggle"
+            type="checkbox"
+            [checked]="todoItem.completed"
+          />
           <label>{{ todoItem.title }}</label>
-          <button title="remove" type="button" class="destroy"></button>
+          <button
+            title="remove"
+            type="button"
+            class="destroy"
+            (click)="removeTodoById(todoItem.id)"
+          ></button>
         </div>
         <input title="edit" class="edit" value="Rule the web" />
       </li>
     </ul>
   </section>
-  
+
   <!-- This footer should be hidden by default and shown when there are todos -->
   <footer class="footer">
     <!-- This should be `0 items left` by default -->
