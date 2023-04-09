@@ -8,9 +8,13 @@ import { FilterType } from './todo-item';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  todos = this.todoService.todos;
   currentFilterType = FilterType.All;
+  
   constructor(private todoService: TodoService) {}
+
+  get todos() {
+    return this.todoService.filterTodos(this.currentFilterType);
+  }
 
   get totalTodosNumber() {
     return this.todoService.todos.length;
@@ -26,36 +30,29 @@ export class AppComponent {
 
   removeTodoById(id: string) {
     this.todoService.removeTodoById(id);
-    this.todos = this.todoService.filterTodos(this.currentFilterType);
   }
 
   toggleTodoCompleted(id: string) {
     this.todoService.toggleTodoCompleted(id);
-    this.todos = this.todoService.filterTodos(this.currentFilterType);
   }
 
   editTodoById(id: string) {
     this.todoService.editTodoById(id);
-    this.todos = this.todoService.filterTodos(this.currentFilterType);
   }
 
   cancelEditingTodoById(id: string) {
     this.todoService.cancelEditingTodoById(id);
-    this.todos = this.todoService.filterTodos(this.currentFilterType);
   }
 
   editTodoTitleById(id: string, title: string) {
     this.todoService.editTodoTitleById(id, title);
-    this.todos = this.todoService.filterTodos(this.currentFilterType);
   }
 
   filterTodos(filterType: string) {
     this.currentFilterType = filterType as FilterType;
-    this.todos = this.todoService.filterTodos(this.currentFilterType);
   }
 
   removeCompleted() {
     this.todoService.removeCompleted();
-    this.todos = this.todoService.todos;
   }
 }
