@@ -1,4 +1,13 @@
 <header class="header">
   <h1>todo</h1>
-  <input #todoInput [value]="todoTitle" (input)="todoTitle = todoInput.value" (keydown)="onKeydown($event)" title="input todo" class="new-todo" placeholder="What needs to be done?" autofocus />
+  <input
+    #todoInput
+    [value]="todoTitle"
+    (input)="todoTitle = todoInput.value"
+    (keydown)="onKeydown($event)"
+    title="input todo"
+    class="new-todo"
+    placeholder="What needs to be done?"
+    autofocus
+  />
 </header>
