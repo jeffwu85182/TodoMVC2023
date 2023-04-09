@@ -33,4 +33,16 @@ export class TodoService {
   removeTodoById(id: number) {
     this.todos = this.todos.filter(todo => todo.id !== id);
   }
+
+  toggleTodoCompleted(id: number) {
+    this.todos = this.todos.map(todo => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          completed: !todo.completed
+        };
+      }
+      return todo;
+    });
+  }
 }

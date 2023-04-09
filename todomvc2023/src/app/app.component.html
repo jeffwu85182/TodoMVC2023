@@ -15,6 +15,7 @@
             class="toggle"
             type="checkbox"
             [checked]="todoItem.completed"
+            (click)="toggleTodoCompleted(todoItem.id)"
           />
           <label>{{ todoItem.title }}</label>
           <button

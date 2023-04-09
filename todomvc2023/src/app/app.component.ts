@@ -17,4 +17,9 @@ export class AppComponent {
     this.todos = this.todoService.todos;
   }
 
+  toggleTodoCompleted(id: number) {
+    this.todoService.toggleTodoCompleted(id);
+    this.todos = this.todoService.todos;
+  }
+
 }
