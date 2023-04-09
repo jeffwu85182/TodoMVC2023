@@ -102,4 +102,8 @@ export class TodoService {
         return this.todos;
     }
   }
+
+  removeCompleted() {
+    this.todos = this.todos.filter((todo) => !todo.completed);
+  }
 }

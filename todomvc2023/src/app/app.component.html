@@ -45,10 +45,10 @@
   </section>
 
   <!-- This footer should be hidden by default and shown when there are todos -->
-  <footer class="footer" *ngIf="todos.length">
+  <footer class="footer" *ngIf="totalTodosNumber">
     <!-- This should be `0 items left` by default -->
     <span class="todo-count"
-      ><strong>{{ remainingTodos }}</strong> item left</span
+      ><strong>{{ remainingTodosNumber }}</strong> item left</span
     >
     <!-- Remove this if you don't implement routing -->
     <ul class="filters">
@@ -75,7 +75,14 @@
       </li>
     </ul>
     <!-- Hidden if no completed items are left ↓ -->
-    <button class="clear-completed">Clear completed</button>
+    <button
+      *ngIf="completedTodosNumber"
+      (click)="removeCompleted()"
+      class="clear-completed"
+      type="button"
+    >
+      Clear completed
+    </button>
   </footer>
 </section>
 
