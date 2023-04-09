@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TodoService } from './todo.service';
+import { FilterType } from './todo-item';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { TodoService } from './todo.service';
 export class AppComponent {
   title = 'todomvc2023';
   todos = this.todoService.todos;
+  currentFilterType = FilterType.All;
   constructor(private todoService: TodoService){
   }
 
@@ -39,6 +41,11 @@ export class AppComponent {
   editTodoTitleById(id: string, title: string) {
     this.todoService.editTodoTitleById(id, title);
     this.todos = this.todoService.todos;
+  }
+
+  filterTodos(filterType: string) {
+    this.currentFilterType = filterType as FilterType;
+    this.todos = this.todoService.filterTodos(this.currentFilterType);
   }
 
 }

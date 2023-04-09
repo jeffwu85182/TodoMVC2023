@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Injectable } from '@angular/core';
-import { TodoItem } from './todo-item';
+import { FilterType, TodoItem } from './todo-item';
 
 @Injectable({
   providedIn: 'root',
@@ -88,5 +88,18 @@ export class TodoService {
       }
       return todo;
     });
+  }
+
+  filterTodos(filterType: FilterType) {
+    switch (filterType) {
+      case FilterType.All:
+        return this.todos;
+      case FilterType.Active:
+        return this.todos.filter((todo) => !todo.completed);
+      case FilterType.Completed:
+        return this.todos.filter((todo) => todo.completed);
+      default:
+        return this.todos;
+    }
   }
 }
