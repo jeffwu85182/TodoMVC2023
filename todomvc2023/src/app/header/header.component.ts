@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  standalone: true,
 })
-export class HeaderComponent{
-  todoTitle: string;
+export class HeaderComponent {
+  @ViewChild('todoInputRef') todoInput!: ElementRef<HTMLInputElement>;
+  constructor(private todoService: TodoService) {}
 
-  constructor(private todoService: TodoService) {
-    this.todoTitle = '';
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      this.todoService.addTodo(this.todoTitle);
-      this.todoTitle = '';
-    }
+  addTodo(title: string) {
+    this.todoService.addTodo(title);
+    const inputElement = this.todoInput.nativeElement;
+    inputElement.value = '';
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+
+import { FilterType, TodoItem } from './todo-item';
 import { TodoService } from './todo.service';
-import { FilterType } from './todo-item';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,10 @@ import { FilterType } from './todo-item';
 })
 export class AppComponent {
   currentFilterType = FilterType.All;
-  
+
   constructor(private todoService: TodoService) {}
 
-  get todos() {
+  get todos(): TodoItem[] {
     return this.todoService.filterTodos(this.currentFilterType);
   }
 
@@ -49,10 +50,15 @@ export class AppComponent {
   }
 
   filterTodos(filterType: string) {
+    if (filterType === this.currentFilterType) return;
     this.currentFilterType = filterType as FilterType;
   }
 
   removeCompleted() {
     this.todoService.removeCompleted();
+  }
+
+  trackByTodoId(index: number, todo: TodoItem) {
+    return todo.id;
   }
 }

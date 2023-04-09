@@ -8,7 +8,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
+      imports: [HeaderComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
@@ -24,5 +24,4 @@ describe('HeaderComponent', () => {
     const input = fixture.nativeElement.querySelector('input');
     expect(input.placeholder).toBe('What needs to be done?');
   });
-
 });

@@ -1,10 +1,8 @@
 <header class="header">
   <h1>todo</h1>
   <input
-    #todoInput
-    [value]="todoTitle"
-    (input)="todoTitle = todoInput.value"
-    (keydown)="onKeydown($event)"
+    #todoInputRef
+    (keydown.enter)="addTodo(todoInputRef.value)"
     title="input todo"
     class="new-todo"
     placeholder="What needs to be done?"

@@ -6,7 +6,7 @@
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       <li
-        *ngFor="let todoItem of todos"
+        *ngFor="let todoItem of todos; trackBy: trackByTodoId"
         [ngClass]="[
           todoItem.completed ? 'completed' : '',
           todoItem.editing ? 'editing' : ''
