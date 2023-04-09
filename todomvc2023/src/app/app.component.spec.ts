@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent, HeaderComponent],
     }).compileComponents();
   });
 
@@ -19,13 +18,20 @@ describe('AppComponent', () => {
   it(`should have as title 'todomvc2023'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('todomvc2023');
+    expect(app.todos.length).toBe(2);
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('todomvc2023 app is running!');
+    expect(compiled.querySelector('h1')?.textContent).toContain('todo');
+  });
+
+  it('should render toggle-all', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.toggle-all')).toBeTruthy();
   });
 });

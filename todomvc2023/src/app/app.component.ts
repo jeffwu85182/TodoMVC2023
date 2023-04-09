@@ -8,7 +8,6 @@ import { FilterType } from './todo-item';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'todomvc2023';
   todos = this.todoService.todos;
   currentFilterType = FilterType.All;
   constructor(private todoService: TodoService) {}
@@ -18,11 +17,11 @@ export class AppComponent {
   }
 
   get remainingTodosNumber() {
-    return this.todos.filter((todo) => !todo.completed).length;
+    return this.todoService.todos.filter((todo) => !todo.completed).length;
   }
 
   get completedTodosNumber() {
-    return this.todos.filter((todo) => todo.completed).length;
+    return this.todoService.todos.filter((todo) => todo.completed).length;
   }
 
   removeTodoById(id: string) {
