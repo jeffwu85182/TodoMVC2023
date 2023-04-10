@@ -1,9 +1,8 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom, isDevMode } from '@angular/core';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppComponent } from './app/app.component';
-import { isDevMode, importProvidersFrom } from '@angular/core';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
 bootstrapApplication(AppComponent, {
   providers: [
