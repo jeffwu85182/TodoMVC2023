@@ -33,20 +33,12 @@ export class AppComponent {
     return this.todoService.todos.filter((todo) => todo.completed).length;
   }
 
-  removeTodoById(id: string) {
-    this.todoService.removeTodoById(id);
+  removeTodo(todo: TodoItem) {
+    this.todoService.removeTodo(todo);
   }
 
   toggleTodoCompleted(id: string) {
     this.todoService.toggleTodoCompleted(id);
-  }
-
-  editTodoById(id: string) {
-    this.todoService.editTodoById(id);
-  }
-
-  cancelEditingTodoById(id: string) {
-    this.todoService.cancelEditingTodoById(id);
   }
 
   editTodoTitleById(id: string, title: string) {

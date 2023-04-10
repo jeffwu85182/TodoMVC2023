@@ -10,7 +10,7 @@
       <li
         *ngFor="let todoItem of todos; trackBy: trackByTodoId"
         [ngClass]="[todoItem.completed ? 'completed' : '', todoItem.editing ? 'editing' : '']"
-        (dblclick)="editTodoById(todoItem.id)"
+        (dblclick)="todoItem.editing = true"
       >
         <div class="view">
           <input
@@ -26,7 +26,7 @@
             title="Remove this todo"
             type="button"
             class="destroy"
-            (click)="removeTodoById(todoItem.id)"
+            (click)="removeTodo(todoItem)"
           ></button>
         </div>
         <input
@@ -35,7 +35,7 @@
           class="edit"
           [value]="todoItem.title"
           (keydown.enter)="editTodoTitleById(todoItem.id, editedTitle.value)"
-          (keydown.esc)="cancelEditingTodoById(todoItem.id)"
+          (keydown.esc)="todoItem.editing = false"
         />
       </li>
     </ul>
