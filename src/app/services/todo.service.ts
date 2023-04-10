@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Injectable } from '@angular/core';
-import { FilterType, TodoItem } from '../todo-item';
+import { TodoItem } from '../todo-item.interface';
 import { StorageService } from './storage.service';
+import { FilterType } from '../constant';
 
 @Injectable({
   providedIn: 'root',

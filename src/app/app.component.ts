@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { FilterType, TodoItem } from './todo-item';
+import { TodoItem } from './todo-item.interface';
 import { TodoService } from './services/todo.service';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
+import { FilterType } from './constant';
 
 @Component({
   selector: 'app-root',
