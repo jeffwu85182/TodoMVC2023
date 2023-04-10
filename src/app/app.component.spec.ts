@@ -6,8 +6,8 @@ import { HeaderComponent } from './header/header.component';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [HeaderComponent, AppComponent]
-}).compileComponents();
+      imports: [HeaderComponent, AppComponent],
+    }).compileComponents();
   });
 
   it('should create the app', () => {
