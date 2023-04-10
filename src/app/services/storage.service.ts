@@ -5,6 +5,10 @@ import { TodoItem } from '../todo-item.interface';
   providedIn: 'root',
 })
 export class StorageService {
+  clear() {
+    localStorage.clear();
+  }
+
   generateTodoItemKey(todo: TodoItem) {
     return `todomvc:${todo.timestamp}:${todo.id}`;
   }

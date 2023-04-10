@@ -45,25 +45,28 @@
   <footer class="footer" *ngIf="totalTodosNumber">
     <!-- This should be `0 items left` by default -->
     <span class="todo-count"
-      ><strong>{{ remainingTodosNumber }}</strong> item left</span
+      ><strong>{{ remainingTodosNumber }}</strong>
+      {{ remainingTodosNumber <= 1 ? 'item' : 'items' }} left</span
     >
     <!-- Remove this if you don't implement routing -->
     <ul class="filters">
       <li>
-        <a [ngClass]="currentFilterType === 'all' ? 'selected' : ''" (click)="filterTodos('all')"
+        <a
+          [ngClass]="['all', currentFilterType === 'all' ? 'selected' : '']"
+          (click)="filterTodos('all')"
           >All</a
         >
       </li>
       <li>
         <a
-          [ngClass]="currentFilterType === 'active' ? 'selected' : ''"
+          [ngClass]="['active', currentFilterType === 'active' ? 'selected' : '']"
           (click)="filterTodos('active')"
           >Active</a
         >
       </li>
       <li>
         <a
-          [ngClass]="currentFilterType === 'completed' ? 'selected' : ''"
+          [ngClass]="['completed', currentFilterType === 'completed' ? 'selected' : '']"
           (click)="filterTodos('completed')"
           >Completed</a
         >

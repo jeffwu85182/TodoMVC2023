@@ -13,6 +13,11 @@ export class TodoService {
     this.todos = this.storageService.getAllTodoItems();
   }
 
+  clear() {
+    this.todos = [];
+    this.storageService.clear();
+  }
+
   addTodo(title: string) {
     const newTodo: TodoItem = {
       id: uuidv4(),
