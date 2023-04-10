@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 
 import { FilterType, TodoItem } from './todo-item';
 import { TodoService } from './todo.service';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: true,
+    imports: [HeaderComponent, NgIf, NgFor, NgClass]
 })
 export class AppComponent {
   currentFilterType = FilterType.All;
