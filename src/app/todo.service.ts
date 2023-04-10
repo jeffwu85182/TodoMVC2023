@@ -1,91 +1,67 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Injectable } from '@angular/core';
 import { FilterType, TodoItem } from './todo-item';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  todos: TodoItem[] = [
-    {
-      id: uuidv4(),
-      title: 'Taste JavaScript',
-      completed: true,
-      editing: false,
-      timestamp: Date.now(),
-    },
-    {
-      id: uuidv4(),
-      title: 'Buy a unicorn',
-      completed: false,
-      editing: false,
-      timestamp: Date.now(),
-    },
-  ];
-  constructor() {}
+  todos: TodoItem[] = [];
+  constructor(private storageService: StorageService) {
+    this.todos = this.storageService.getAllTodoItems();
+  }
 
   addTodo(title: string) {
-    this.todos.push({
+    const newTodo: TodoItem = {
       id: uuidv4(),
       title,
       completed: false,
       editing: false,
       timestamp: Date.now(),
-    });
+    };
+
+    this.todos.push(newTodo);
+    this.storageService.addTodoItem(newTodo);
   }
 
-  removeTodoById(id: string) {
-    this.todos = this.todos.filter((todo) => todo.id !== id);
+  removeTodo(removedTodo: TodoItem) {
+    this.todos = this.todos.filter((todo) => todo.id !== removedTodo.id);
+    this.storageService.removeTodoItem(removedTodo);
   }
 
   toggleTodoCompleted(id: string) {
     this.todos = this.todos.map((todo) => {
       if (todo.id === id) {
-        return {
+        const updatedTodo = {
           ...todo,
           completed: !todo.completed,
         };
-      }
-      return todo;
-    });
-  }
 
-  editTodoById(id: string) {
-    this.todos = this.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          editing: true,
-        };
+        this.storageService.updateTodoItem(updatedTodo);
+
+        return updatedTodo;
       }
-      return {
-        ...todo,
-        editing: false,
-      };
+
+      return todo;
     });
   }
 
   editTodoTitleById(id: string, title: string) {
     this.todos = this.todos.map((todo) => {
       if (todo.id === id) {
-        return {
+        this.storageService.removeTodoItem(todo);
+
+        const updatedTodo: TodoItem = {
           ...todo,
           title,
           editing: false,
         };
-      }
-      return todo;
-    });
-  }
+        this.storageService.updateTodoItem(updatedTodo);
 
-  cancelEditingTodoById(id: string) {
-    this.todos = this.todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          editing: false,
-        };
+        return updatedTodo;
       }
+
       return todo;
     });
   }
@@ -104,14 +80,24 @@ export class TodoService {
   }
 
   removeCompleted() {
-    this.todos = this.todos.filter((todo) => !todo.completed);
+    this.todos = this.todos.filter((todo) => {
+      if (todo.completed) {
+        this.storageService.removeTodoItem(todo);
+        return false;
+      }
+      return true;
+    });
   }
 
   toggleAllTodos() {
     const allCompleted = this.todos.every((todo) => todo.completed);
-    this.todos = this.todos.map((todo) => ({
-      ...todo,
-      completed: !allCompleted,
-    }));
+    this.todos = this.todos.map((todo) => {
+      const updatedTodo = {
+        ...todo,
+        completed: !allCompleted,
+      };
+      this.storageService.updateTodoItem(updatedTodo);
+      return updatedTodo;
+    });
   }
 }
