@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { FilterType, TodoItem } from './todo-item';
-import { TodoService } from './todo.service';
+import { TodoService } from './services/todo.service';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { TodoItem } from './todo-item';
+import { TodoItem } from '../todo-item';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
   generateTodoItemKey(todo: TodoItem) {
-    return `${todo.timestamp}&&${todo.title}&&${todo.id}`;
+    return `todomvc:${todo.timestamp}:${todo.id}`;
   }
 
   getAllTodoItems() {
     const todos: TodoItem[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key?.split('&&').length === 3) {
+      if (key?.split(':').length === 3) {
         const value = localStorage.getItem(key);
         todos.push(JSON.parse(value!));
       }
