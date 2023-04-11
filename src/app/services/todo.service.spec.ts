@@ -33,7 +33,7 @@ describe('TodoService', () => {
   it('should toggle todo', () => {
     service.addTodo('test');
     const todo = service.todos[0];
-    service.toggleTodoCompleted(todo.id);
+    service.toggleTodoCompleted(todo);
     const updatedTodo = service.todos[0];
     expect(updatedTodo.completed).toBeTruthy();
   });

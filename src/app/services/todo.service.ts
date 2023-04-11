@@ -1,21 +1,29 @@
-import { v4 as uuidv4 } from 'uuid';
 import { Injectable } from '@angular/core';
+
+import { BehaviorSubject } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
+
 import { TodoItem } from '../todo-item.interface';
 import { StorageService } from './storage.service';
-import { FilterType } from '../constant';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   todos: TodoItem[] = [];
+  todos$ = new BehaviorSubject<TodoItem[]>([]);
   constructor(private storageService: StorageService) {
     this.todos = this.storageService.getAllTodoItems();
+  }
+
+  getLatestTodos() {
+    this.todos$.next(this.todos);
   }
 
   clear() {
     this.todos = [];
     this.storageService.clear();
+    this.todos$.next(this.todos);
   }
 
   addTodo(title: string) {
@@ -29,28 +37,29 @@ export class TodoService {
 
     this.todos.push(newTodo);
     this.storageService.addTodoItem(newTodo);
+    this.todos$.next(this.todos);
   }
 
   removeTodo(removedTodo: TodoItem) {
     this.todos = this.todos.filter((todo) => todo.id !== removedTodo.id);
     this.storageService.removeTodoItem(removedTodo);
+    this.todos$.next(this.todos);
   }
 
-  toggleTodoCompleted(id: string) {
+  toggleTodoCompleted(todo: TodoItem) {
+    const updatedTodo = {
+      ...todo,
+      completed: !todo.completed,
+    };
+
+    this.storageService.updateTodoItem(updatedTodo);
     this.todos = this.todos.map((todo) => {
-      if (todo.id === id) {
-        const updatedTodo = {
-          ...todo,
-          completed: !todo.completed,
-        };
-
-        this.storageService.updateTodoItem(updatedTodo);
-
+      if (todo.id === updatedTodo.id) {
         return updatedTodo;
       }
-
       return todo;
     });
+    this.todos$.next(this.todos);
   }
 
   editTodoTitleById(id: string, title: string) {
@@ -70,19 +79,7 @@ export class TodoService {
 
       return todo;
     });
-  }
-
-  filterTodos(filterType: FilterType) {
-    switch (filterType) {
-      case FilterType.All:
-        return this.todos;
-      case FilterType.Active:
-        return this.todos.filter((todo) => !todo.completed);
-      case FilterType.Completed:
-        return this.todos.filter((todo) => todo.completed);
-      default:
-        return this.todos;
-    }
+    this.todos$.next(this.todos);
   }
 
   removeCompleted() {
@@ -93,6 +90,7 @@ export class TodoService {
       }
       return true;
     });
+    this.todos$.next(this.todos);
   }
 
   toggleAllTodos() {
@@ -105,5 +103,6 @@ export class TodoService {
       this.storageService.updateTodoItem(updatedTodo);
       return updatedTodo;
     });
+    this.todos$.next(this.todos);
   }
 }
