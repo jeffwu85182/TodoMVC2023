@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/todomvc2023",
+            "outputPath": "dist/todomvc2023/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -103,6 +103,61 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/todomvc2023/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "todomvc2023:build:development",
+              "serverTarget": "todomvc2023:server:development"
+            },
+            "production": {
+              "browserTarget": "todomvc2023:build:production",
+              "serverTarget": "todomvc2023:server:production"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "todomvc2023:build:production",
+              "serverTarget": "todomvc2023:server:production"
+            },
+            "development": {
+              "browserTarget": "todomvc2023:build:development",
+              "serverTarget": "todomvc2023:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
