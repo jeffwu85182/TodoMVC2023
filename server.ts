@@ -6,11 +6,14 @@ import * as express from 'express';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import bootstrap from './src/main.server';
+import { isDevMode } from '@angular/core';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'browser');
+  const isDev = isDevMode();
+  const website = isDev ? 'dist/functions/browser' : 'browser';
+  const distFolder = join(process.cwd(), website);
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
